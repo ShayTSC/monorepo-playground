@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+.tmp/
+lerna-debug.log
+packages/*/tsconfig.tsbuildinfo
+

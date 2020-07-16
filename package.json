@@ -1,17 +1,37 @@
 {
   "name": "monorepo-playground",
   "version": "1.0.0",
-  "description": "",
+  "description": "a monorepo rollup&lerna demo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint",
+    "build": "tsc --build ./tsconfig.project.json",
+    "build-all": "npm run _build-esm && npm run _build-cjs && npm run _dist",
+    "_build-esm": "node ./admin/cmds/set-option esm && npm run build",
+    "_build-cjs": "node ./admin/cmds/set-option cjs && npm run build",
+    "_dist": "npm run _dist-esm && npm run _dist-umd",
+    "_dist-esm": "node ./admin/cmds/set-option esm browser-lang-all && rollup -c --configModule && mv ./packages/demo/dist/demo.esm.min.js ./packages/demo/dist/demo-all.esm.min.js && node ./admin/cmds/set-option esm && rollup -c --configModule",
+    "_dist-umd": "node ./admin/cmds/set-option cjs browser-lang-all && rollup -c && mv ./packages/demo/dist/demo.umd.min.js ./packages/demo/dist/demo-all.umd.min.js && node ./admin/cmds/set-option cjs && rollup -c"
   },
-  "author": "",
+  "author": "abnernat",
   "license": "ISC",
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "@types/ms": "^0.7.31",
+    "prettier": "^2.0.5",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^6.1.0",
+    "rollup-pluginutils": "^2.8.2",
+    "typescript": "^3.9.6"
   },
   "dependencies": {
-    "rollup": "^2.21.0"
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.4.0",
+    "lerna": "^3.22.1",
+    "npm-packlist": "^2.1.2",
+    "rollup": "^2.21.0",
+    "tar": "^6.0.2"
   }
 }

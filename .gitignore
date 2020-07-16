@@ -3,4 +3,5 @@ node_modules/
 .tmp/
 lerna-debug.log
 packages/*/tsconfig.tsbuildinfo
+.vscode
 
